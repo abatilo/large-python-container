@@ -32,8 +32,6 @@ jobs:
         with:
           push: true
           tags: 717012417639.dkr.ecr.us-west-2.amazonaws.com/large-python-container:gha-${{ github.sha }}
-          cache-from: type=registry,ref=717012417639.dkr.ecr.us-west-2.amazonaws.com/large-python-container:gha-cache
-          cache-to: type=registry,ref=717012417639.dkr.ecr.us-west-2.amazonaws.com/large-python-container:gha-cache,mode=max
           labels: |
             org.opencontainers.image.source=https://github.com/abatilo/large-python-container
 
@@ -67,8 +65,6 @@ jobs:
         with:
           push: true
           tags: 717012417639.dkr.ecr.us-west-2.amazonaws.com/large-python-container:eks-${{ github.sha }}
-          cache-from: type=registry,ref=717012417639.dkr.ecr.us-west-2.amazonaws.com/large-python-container:eks-cache
-          cache-to: type=registry,ref=717012417639.dkr.ecr.us-west-2.amazonaws.com/large-python-container:eks-cache,mode=max
           labels: |
             org.opencontainers.image.source=https://github.com/abatilo/large-python-container
 
@@ -98,8 +94,6 @@ jobs:
         with:
           push: true
           tags: 717012417639.dkr.ecr.us-west-2.amazonaws.com/large-python-container:custom-gha-${{ github.sha }}
-          cache-from: type=registry,ref=717012417639.dkr.ecr.us-west-2.amazonaws.com/large-python-container:custom-gha-cache
-          cache-to: type=registry,ref=717012417639.dkr.ecr.us-west-2.amazonaws.com/large-python-container:custom-gha-cache,mode=max
           labels: |
             org.opencontainers.image.source=https://github.com/abatilo/large-python-container
 
@@ -137,7 +131,5 @@ jobs:
         with:
           push: true
           tags: 717012417639.dkr.ecr.us-west-2.amazonaws.com/large-python-container:custom-eks-${{ github.sha }}
-          cache-from: type=registry,ref=717012417639.dkr.ecr.us-west-2.amazonaws.com/large-python-container:custom-eks-cache
-          cache-to: type=registry,ref=717012417639.dkr.ecr.us-west-2.amazonaws.com/large-python-container:custom-eks-cache,mode=max
           labels: |
             org.opencontainers.image.source=https://github.com/abatilo/large-python-container
