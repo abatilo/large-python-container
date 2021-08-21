@@ -11,7 +11,7 @@ env:
   AWS_REGION: us-west-2
 
 jobs:
-  from-gha:
+  default-buildx-hosted:
     runs-on: ubuntu-20.04
     steps:
       - uses: actions/checkout@v2
@@ -35,7 +35,7 @@ jobs:
           labels: |
             org.opencontainers.image.source=https://github.com/abatilo/large-python-container
 
-  from-eks:
+  kubernetes-buildx-hosted:
     runs-on: ubuntu-20.04
     steps:
       - uses: actions/checkout@v2
@@ -68,7 +68,7 @@ jobs:
           labels: |
             org.opencontainers.image.source=https://github.com/abatilo/large-python-container
 
-  from-custom-gha:
+  default-buildx-custom:
     runs-on: custom-runner
     steps:
       - uses: actions/checkout@v2
@@ -97,7 +97,7 @@ jobs:
           labels: |
             org.opencontainers.image.source=https://github.com/abatilo/large-python-container
 
-  from-custom-eks:
+  kubernetes-buildx-custom:
     runs-on: custom-runner
     steps:
       - uses: actions/checkout@v2
