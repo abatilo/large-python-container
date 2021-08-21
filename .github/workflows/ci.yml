@@ -1,0 +1,143 @@
+name: "Build container"
+on:
+  push:
+    branches:
+      - "main"
+
+env:
+  AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+  AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+  AWS_DEFAULT_REGION: us-west-2
+  AWS_REGION: us-west-2
+
+jobs:
+  from-gha:
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v2
+      - uses: asdf-vm/actions/install@v1
+
+      - name: Set EKS context
+        run: |
+          aws eks update-kubeconfig --name usw2-r
+
+      - name: Create buildx daemon on EKS cluster
+        uses: docker/setup-buildx-action@v1
+
+      - name: Login to Amazon ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v1
+
+      - uses: docker/build-push-action@v2
+        with:
+          push: true
+          tags: 717012417639.dkr.ecr.us-west-2.amazonaws.com/large-python-container:gha-${{ github.sha }}
+          cache-from: type=registry,ref=717012417639.dkr.ecr.us-west-2.amazonaws.com/large-python-container:gha-cache
+          cache-to: type=registry,ref=717012417639.dkr.ecr.us-west-2.amazonaws.com/large-python-container:gha-cache,mode=max
+          labels: |
+            org.opencontainers.image.source=https://github.com/abatilo/large-python-container
+
+  from-eks:
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v2
+      - uses: asdf-vm/actions/install@v1
+
+      - name: Set EKS context
+        run: |
+          aws eks update-kubeconfig --name usw2-r
+
+      - name: Create buildx daemon on EKS cluster
+        uses: docker/setup-buildx-action@v1
+        with:
+          driver: kubernetes
+          driver-opts: |
+            replicas=1
+            namespace=buildx
+            requests.cpu=2
+            requests.memory=7Gi
+            limits.cpu=2
+            requests.memory=7Gi
+
+      - name: Login to Amazon ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v1
+
+      - uses: docker/build-push-action@v2
+        with:
+          push: true
+          tags: 717012417639.dkr.ecr.us-west-2.amazonaws.com/large-python-container:eks-${{ github.sha }}
+          cache-from: type=registry,ref=717012417639.dkr.ecr.us-west-2.amazonaws.com/large-python-container:eks-cache
+          cache-to: type=registry,ref=717012417639.dkr.ecr.us-west-2.amazonaws.com/large-python-container:eks-cache,mode=max
+          labels: |
+            org.opencontainers.image.source=https://github.com/abatilo/large-python-container
+
+  from-custom-gha:
+    runs-on: custom-runner
+    steps:
+      - uses: actions/checkout@v2
+      - uses: asdf-vm/actions/install@v1
+
+      - name: Set EKS context
+        run: |
+          aws eks update-kubeconfig --name usw2-r
+
+      - run: |
+          docker context create from-custom-eks
+
+      - name: Create buildx daemon on EKS cluster
+        uses: docker/setup-buildx-action@v1
+        with:
+          endpoint: from-custom-eks
+
+      - name: Login to Amazon ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v1
+
+      - uses: docker/build-push-action@v2
+        with:
+          push: true
+          tags: 717012417639.dkr.ecr.us-west-2.amazonaws.com/large-python-container:custom-gha-${{ github.sha }}
+          cache-from: type=registry,ref=717012417639.dkr.ecr.us-west-2.amazonaws.com/large-python-container:custom-gha-cache
+          cache-to: type=registry,ref=717012417639.dkr.ecr.us-west-2.amazonaws.com/large-python-container:custom-gha-cache,mode=max
+          labels: |
+            org.opencontainers.image.source=https://github.com/abatilo/large-python-container
+
+  from-custom-eks:
+    runs-on: custom-runner
+    steps:
+      - uses: actions/checkout@v2
+      - uses: asdf-vm/actions/install@v1
+
+      - name: Set EKS context
+        run: |
+          aws eks update-kubeconfig --name usw2-r
+
+      - run: |
+          docker context create from-custom-eks
+
+      - name: Create buildx daemon on EKS cluster
+        uses: docker/setup-buildx-action@v1
+        with:
+          endpoint: from-custom-eks
+          driver: kubernetes
+          driver-opts: |
+            replicas=1
+            namespace=buildx
+            requests.cpu=2
+            requests.memory=7Gi
+            limits.cpu=2
+            requests.memory=7Gi
+
+      - name: Login to Amazon ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v1
+
+      - uses: docker/build-push-action@v2
+        with:
+          push: true
+          tags: 717012417639.dkr.ecr.us-west-2.amazonaws.com/large-python-container:custom-eks-${{ github.sha }}
+          cache-from: type=registry,ref=717012417639.dkr.ecr.us-west-2.amazonaws.com/large-python-container:custom-eks-cache
+          cache-to: type=registry,ref=717012417639.dkr.ecr.us-west-2.amazonaws.com/large-python-container:custom-eks-cache,mode=max
+          labels: |
+            org.opencontainers.image.source=https://github.com/abatilo/large-python-container
