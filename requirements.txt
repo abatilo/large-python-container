@@ -8,8 +8,6 @@ allennlp==2.6.0
     # via -r requirements.in
 argon2-cffi==20.1.0
     # via notebook
-asgiref==3.4.1
-    # via django
 attrs==21.2.0
     # via
     #   jsonschema
@@ -61,7 +59,6 @@ cherrypy==18.6.1
 click==7.1.2
     # via
     #   nltk
-    #   pip-tools
     #   sacremoses
     #   typer
     #   wandb
@@ -82,8 +79,6 @@ defusedxml==0.7.1
     # via nbconvert
 dill==0.3.4
     # via checklist
-django==3.2.6
-    # via -r requirements.in
 docker-pycreds==0.4.0
     # via wandb
 entrypoints==0.3
@@ -294,16 +289,12 @@ patternfork-nosql==3.6
     # via checklist
 pdfminer.six==20201018
     # via patternfork-nosql
-pep517==0.11.0
-    # via pip-tools
 pexpect==4.8.0
     # via ipython
 pickleshare==0.7.5
     # via ipython
 pillow==8.3.1
     # via torchvision
-pip-tools==6.2.0
-    # via -r requirements.in
 pluggy==0.13.1
     # via pytest
 portend==2.7.1
@@ -367,9 +358,7 @@ python-dateutil==2.8.2
 python-docx==0.8.11
     # via patternfork-nosql
 pytz==2021.1
-    # via
-    #   django
-    #   tempora
+    # via tempora
 pyyaml==5.4.1
     # via
     #   transformers
@@ -448,8 +437,6 @@ spacy==3.0.7
     #   checklist
 spacy-legacy==3.0.8
     # via spacy
-sqlparse==0.4.1
-    # via django
 srsly==2.4.1
     # via
     #   spacy
@@ -474,8 +461,6 @@ tokenizers==0.10.3
     # via transformers
 toml==0.10.2
     # via pytest
-tomli==1.2.1
-    # via pep517
 torch==1.9.0
     # via
     #   allennlp
@@ -538,13 +523,10 @@ wcwidth==0.2.5
     # via prompt-toolkit
 webencodings==0.5.1
     # via bleach
-wheel==0.37.0
-    # via pip-tools
 widgetsnbextension==3.5.1
     # via ipywidgets
 zc.lockfile==2.0
     # via cherrypy
 
 # The following packages are considered to be unsafe in a requirements file:
-# pip
 # setuptools
