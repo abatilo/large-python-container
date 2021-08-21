@@ -31,7 +31,9 @@ jobs:
       - uses: docker/build-push-action@v2
         with:
           push: true
-          tags: 717012417639.dkr.ecr.us-west-2.amazonaws.com/large-python-container:gha-${{ github.sha }}
+          tags: |
+            717012417639.dkr.ecr.us-west-2.amazonaws.com/large-python-container:gha-${{ github.sha }}
+            717012417639.dkr.ecr.us-west-2.amazonaws.com/large-python-container:gha-cache
           cache-from: type=registry,ref=717012417639.dkr.ecr.us-west-2.amazonaws.com/large-python-container:gha-cache
           cache-to: type=inline
           labels: |
@@ -66,7 +68,9 @@ jobs:
       - uses: docker/build-push-action@v2
         with:
           push: true
-          tags: 717012417639.dkr.ecr.us-west-2.amazonaws.com/large-python-container:eks-${{ github.sha }}
+          tags: |
+            717012417639.dkr.ecr.us-west-2.amazonaws.com/large-python-container:eks-${{ github.sha }}
+            717012417639.dkr.ecr.us-west-2.amazonaws.com/large-python-container:eks-cache
           cache-from: 717012417639.dkr.ecr.us-west-2.amazonaws.com/large-python-container:eks-cache
           cache-to: type=inline
           labels: |
@@ -97,7 +101,9 @@ jobs:
       - uses: docker/build-push-action@v2
         with:
           push: true
-          tags: 717012417639.dkr.ecr.us-west-2.amazonaws.com/large-python-container:custom-gha-${{ github.sha }}
+          tags: |
+            717012417639.dkr.ecr.us-west-2.amazonaws.com/large-python-container:custom-gha-${{ github.sha }}
+            717012417639.dkr.ecr.us-west-2.amazonaws.com/large-python-container:custom-gha-cache
           cache-from: 717012417639.dkr.ecr.us-west-2.amazonaws.com/large-python-container:custom-gha-cache
           cache-to: type=inline
           labels: |
@@ -136,7 +142,9 @@ jobs:
       - uses: docker/build-push-action@v2
         with:
           push: true
-          tags: 717012417639.dkr.ecr.us-west-2.amazonaws.com/large-python-container:custom-eks-${{ github.sha }}
+          tags: |
+            717012417639.dkr.ecr.us-west-2.amazonaws.com/large-python-container:custom-eks-${{ github.sha }}
+            717012417639.dkr.ecr.us-west-2.amazonaws.com/large-python-container:custom-eks-cache
           cache-from: 717012417639.dkr.ecr.us-west-2.amazonaws.com/large-python-container:custom-eks-cache
           cache-to: type=inline
           labels: |
